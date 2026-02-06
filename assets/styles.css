@@ -1,0 +1,260 @@
+/* ============================================================
+   0. VARIÁVEIS E RESET
+   ============================================================ */
+:root {
+  --primary:        #2a9d8f;
+  --primary-dark:   #248b80;
+  --secondary:      #264653;
+  --bg-light:       #f4f4f4;
+  --glass-bg:       rgba(255,255,255,0.12);
+  --navbar-bg:      rgba(13,37,63,0.85);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   1. NAVBAR (Glassmorphism)
+   ============================================================ */
+.glass-navbar {
+  background: var(--navbar-bg) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1030;
+}
+.navbar-title {
+  font-size: clamp(1.25rem, 2vw + .5rem, 1.75rem);
+}
+
+/* ============================================================
+   2. HERO SECTION (100vh + Glow)
+   ============================================================ */
+.hero-section {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 15% 30%, #2a9d8f 0%, #155b8e 40%, #0d314d 100%);
+  position: relative; overflow: hidden;
+}
+.hero-section::before {
+  content: ""; position: absolute; inset: -50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 60%);
+  animation: heroGlow 15s linear infinite;
+}
+@keyframes heroGlow {
+  0%   { transform: translate(0,0) rotate(0deg); }
+  50%  { transform: translate(25%,25%) rotate(180deg); }
+  100% { transform: translate(0,0) rotate(360deg); }
+}
+.hero-head {
+  font-size: clamp(1.5rem, 3vw + 1rem, 3rem);
+}
+.hero-card {
+  background: var(--glass-bg); backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   3. BOTÕES (CTA & Action)
+   ============================================================ */
+.btn-cta {
+  --bs-btn-font-weight: 600;
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-dark);
+  --bs-btn-hover-border-color: var(--primary-dark);
+}
+.btn-action {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-action:active {
+  transform: scale(.96);
+  box-shadow: 0 0 0 .2rem rgba(0,0,0,.15) inset;
+}
+
+/* ============================================================
+   4. GLASS CARD
+   ============================================================ */
+.glass {
+  background: var(--glass-bg); backdrop-filter: blur(8px);
+}
+.upload-card {
+  max-width: 900px; border-radius: 1rem; overflow: hidden; border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); background: var(--bg-light);
+}
+.upload-header {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  color: #fff; padding: 1rem;
+  font-size: clamp(1.25rem, 2vw + .5rem, 1.75rem);
+}
+
+/* ============================================================
+   5. ZONA DE UPLOAD (Estilo Moderno – verde mais forte)
+   ============================================================ */
+.upload-zone {
+  position: relative;
+  border: 2px dashed var(--primary-dark);
+  /* fundo esverdeado mais forte */
+  background: rgba(36,139,128,0.6);  /* var(--primary-dark) @ 30% */
+  color: var(--primary-dark);
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  transition: background .3s ease, color .3s ease, box-shadow .3s ease;
+}
+
+.upload-zone::before {
+  content: "\f0ee";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  animation: floatIcon 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.upload-zone:hover {
+  /* hover ainda mais pronunciado */
+  background: rgba(36,139,128,0.8); /* var(--primary-dark) @ 50% */
+  box-shadow: 0 4px 15px rgba(36,139,128,0.25);
+  color: #fff;
+}
+
+/* mantém a animação do ícone */
+@keyframes floatIcon {
+  0%,100% { transform: translate(-50%, 0); }
+  50%     { transform: translate(-50%, -10px); }
+}
+
+.upload-zone .upload-placeholder {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+}
+
+
+
+
+/* ============================================================
+   6. GRADIENT BORDER
+   ============================================================ */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; padding: 2px;
+  background: linear-gradient(135deg, var(--primary), #155b8e);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================================
+   7. BADGE & MENSAGEM UPLOAD
+   ============================================================ */
+.badge.bg-primary-subtle {
+  background: rgba(42,157,143,0.15); color: var(--primary);
+  font-size: .825rem; padding: .4em .7em;
+}
+.msg-upload {
+  font-size: .85rem;
+}
+
+/* ============================================================
+   8. LABELS R01/R03
+   ============================================================ */
+.upload-label {
+  color: var(--secondary) !important; font-size: .95rem;
+  font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
+}
+.upload-label.bg-light {
+  background: var(--bg-light) !important; color: var(--secondary) !important;
+  display: inline-block; padding: .25rem .5rem; border-radius: .25rem;
+}
+
+/* ============================================================
+   9. RESPONSIVIDADE E AJUSTES
+   ============================================================ */
+.upload-body {
+  background: #fff; padding: 2rem 1.5rem;
+}
+.upload-card .card-body { padding-bottom: 2rem; }
+.hero-card p { font-size: clamp(1rem, 1.2vw + .25rem, 1.25rem); }
+
+@media (max-width: 575.98px) {
+  .upload-zone { padding: 1rem .5rem; max-width: 100%; }
+  .btn-cta { width: 100%; }
+}
+
+/* ============================================================
+   10. OVERLAY HERO
+   ============================================================ */
+.hero-section::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("/assets/arquivotxt.png");
+  background-repeat: repeat-x; background-position: center center;
+  background-size: 50% auto; opacity: .15; pointer-events: none; z-index: 0;
+}
+
+/* ============================================================
+   11. DIFERENCIAÇÃO BOTÕES GERAR / BAIXAR
+   ============================================================ */
+#botao-gerar-txt {
+  background-color: var(--secondary) !important; border-color: var(--secondary) !important;
+  color: #fff !important;
+}
+#botao-gerar-txt:hover { background-color: #1f3747 !important; }
+#botao-download-txt {
+  background-color: var(--primary-dark) !important; border-color: var(--primary-dark) !important;
+  color: #fff !important;
+}
+#botao-download-txt:hover { background-color: var(--primary) !important; }
+
+/* ============================================================
+   12. BOTÃO COPIAR – PREVIEW
+   ============================================================ */
+#btn-copy-preview {
+  padding: .5rem .75rem !important; font-size: .875rem !important;
+}
+
+/* ============================================================
+   13. STEPPER HORIZONTAL
+   ============================================================ */
+.stepper {
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 1rem 0;
+}
+.step {
+  flex: 1; position: relative; text-align: center;
+}
+.step:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: 0;
+  width: 100%; height: 2px; background: rgba(0,0,0,0.1);
+  transform: translateX(50%); z-index: 0;
+}
+.step-icon {
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: rgba(0,0,0,0.1); display: flex; align-items: center;
+  justify-content: center; margin: 0 auto; z-index: 1;
+}
+.step-label {
+  margin-top: .25rem; font-size: .875rem;
+}
+.step-active .step-icon {
+  background: var(--primary); color: #fff;
+}
+.step-completed .step-icon {
+  background: var(--primary-dark); color: #fff;
+}
